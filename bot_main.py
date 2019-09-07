@@ -8,7 +8,10 @@ def get_text_messages(message):
     if message.text == "Привет":
         bot.send_message(message.from_user.id, "Привет, чем я могу тебе помочь?")
     elif message.text == "/help":
-        bot.send_message(message.from_user.id, "Напиши Привет")
+        bot.send_message(message.from_user.id, "Напиши Привет, чтобы поздороваться",
+                         "Кто ты?, чтобы познакомиться")
+    elif message.text == "Кто ты?":
+        bot.send_message(message.from_user.id, "Я бот, созданный тремя криворукими разрабами. Я должен быть смешным")
     else:
         bot.send_message(message.from_user.id, "Я тебя не понимаю. Напиши /help.")
 
