@@ -1,18 +1,27 @@
 import telebot
 
-bot = telebot.TeleBot("864642148:AAEf2LgdLvfjjKHHodvps1xo5VW0X_f59zI")
+bot = telebot.TeleBot('864642148:AAEf2LgdLvfjjKHHodvps1xo5VW0X_f59zI')
+keyboard1 = telebot.types.ReplyKeyboardMarkup()
+keyboard1.row('Привет', 'Пока')
 
-def start():
-    pass
+
+@bot.message_handler(commands=['start'])
+def start_message(message):
+    bot.send_message(message.chat.id, 'Привет, ты написал мне /start', reply_markup=keyboard1)
 
 
 @bot.message_handler(content_types=['text'])
-def get_text_message(message):
-    if message.text == "Привет":
-        bot.send_message(message.from_user.id, "Привет, чем могу тебе помочь?")
-    elif message.text == "/help":
-        bot.send_message(message.from_user.id,"Пишите слова, бот отвечает на самые интересные из них")
+def send_text(message):
+    if message.text.lower() == 'привет':
+        bot.send_message(message.chat.id, 'Привет, мой создатель')
+    elif message.text.lower() == 'пока':
+        bot.send_message(message.chat.id, 'Прощай, создатель')
+    elif message.text.lower() == 'я тебя люблю':
+        bot.send_sticker(message.chat.id, 'CAADAgADZgkAAnlc4gmfCor5YbYYRAI')
 
 
-if __name__ == '__main__':
-    bot.polling(none_stop=True)
+@bot.message_handler(content_types=['sticker'])
+def sticker_id(message):
+    print(message)
+
+bot.polling()
