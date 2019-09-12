@@ -29,13 +29,13 @@ def text_message(update):
     request = apiai.ApiAI('864642148:AAEf2LgdLvfjjKHHodvps1xo5VW0X_f59zI').text_request()
     request.lang = 'ru'
     request.session_id = 'lolstickerbot'
-    request.query = update.message.text
+    request.query = update.text
     response_json = json.loads(request.getresponse().read().decode('utf-8'))
     response = response_json['result']['fulfillment']['speech']
     if response:
-        bot.send_message(chat_id=update.message.chat_id, text=response)
+        bot.send_message(chat_id=update.chat_id, text=response)
     else:
-        bot.send_message(chat_id=update.message.chat_id, text='Я Вас не совсем понял!')
+        bot.send_message(chat_id=update.mchat_id, text='Я Вас не совсем понял!')
 
 
 @bot.message_handler(content_types=['sticker'])
